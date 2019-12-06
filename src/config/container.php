@@ -6,7 +6,7 @@ use App\Controller\ProductsController;
 use App\Kernel;
 use App\Repository\OrderRepository;
 use App\Repository\ProductRepository;
-use App\Request\Order\CreateOrderTransformer;
+use App\Request\Order\CreateOrderRequestTransformer;
 use App\Request\Order\PayOrderRequestTransformer;
 use App\Service\FixtureService;
 use App\Service\OrderService;
@@ -40,7 +40,7 @@ $containerBuilder->register(OrderService::class, OrderService::class)
     ->setArguments([new Reference(OrderRepository::class)]);
 
 // RequestTransformers
-$containerBuilder->register(CreateOrderTransformer::class, CreateOrderTransformer::class)
+$containerBuilder->register(CreateOrderRequestTransformer::class, CreateOrderRequestTransformer::class)
     ->setArguments([new Reference(ProductRepository::class)]);
 $containerBuilder->register(PayOrderRequestTransformer::class, PayOrderRequestTransformer::class)
     ->setArguments([new Reference(OrderRepository::class)]);

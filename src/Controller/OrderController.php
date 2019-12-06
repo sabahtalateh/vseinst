@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Request\Order\CreateOrderTransformer;
+use App\Request\Order\CreateOrderRequestTransformer;
 use App\Request\Order\PayOrderRequestTransformer;
 use App\Service\OrderService;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,8 +12,8 @@ class OrderController extends BaseController
 {
     public function create(Request $request): JsonResponse
     {
-        /** @var CreateOrderTransformer $orderRequestTransformer */
-        $orderRequestTransformer = $this->get(CreateOrderTransformer::class);
+        /** @var CreateOrderRequestTransformer $orderRequestTransformer */
+        $orderRequestTransformer = $this->get(CreateOrderRequestTransformer::class);
         $body = $this->jsonRequestToArray($request);
         $products = $orderRequestTransformer->transform($body);
 

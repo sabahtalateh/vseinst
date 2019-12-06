@@ -6,7 +6,7 @@ use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-class CreateOrderTransformer
+class CreateOrderRequestTransformer
 {
     private $productRepository;
 
