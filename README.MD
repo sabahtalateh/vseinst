@@ -8,4 +8,8 @@ docker run -p33322:5432 --name vseinst -e POSTGRES_PASSWORD=PNiG3nEP87TVCMQsW2 -
 vendor/bin/doctrine orm:schema-tool:create
 ```
 
+## Serve with built in PHP server
+```bash
+php -S localhost:8888 -t public
+```
 
