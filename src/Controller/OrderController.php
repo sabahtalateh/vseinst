@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Request\Order\CreateOrderRequestTransformer;
 use App\Request\Order\PayOrderRequestTransformer;
-use App\Service\OrderService;
+use App\Service\Order\OrderService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 

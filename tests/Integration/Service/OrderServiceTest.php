@@ -6,7 +6,7 @@ use App\Currency\Currency;
 use App\Entity\Product;
 use App\Enum\OrderProcessStatus;
 use App\Repository\ProductRepository;
-use App\Service\OrderService;
+use App\Service\Order\OrderService;
 use PHPUnit\Framework\TestCase;
 
 class OrderServiceTest extends TestCase
@@ -74,7 +74,7 @@ class OrderServiceTest extends TestCase
 
         $order = $orderService->pay($order, new Currency(2, 50));
 
-        $this->assertNotEquals($order->getProcessStatus(), OrderProcessStatus::PAYED());
+        $this->assertNotEquals($order->getOrder()->getProcessStatus(), OrderProcessStatus::PAYED());
     }
 
     public function testStatusSetToPayedWhenTotalEquals()
@@ -99,6 +99,6 @@ class OrderServiceTest extends TestCase
 
         $order = $orderService->pay($order, new Currency(3, 72));
 
-        $this->assertEquals($order->getProcessStatus(), OrderProcessStatus::PAYED());
+        $this->assertEquals($order->getOrder()->getProcessStatus(), OrderProcessStatus::PAYED());
     }
 }

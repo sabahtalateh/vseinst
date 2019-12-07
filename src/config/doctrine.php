@@ -13,7 +13,5 @@ $useSimpleAnnotationReader = false;
 $config = Setup::createAnnotationMetadataConfiguration([__DIR__.'/../Entity'], $isDevMode, $proxyDir, $cache, $useSimpleAnnotationReader);
 
 $conn = ['url' => $_ENV['DB_URL']];
-dump($conn);
-die();
 
 return EntityManager::create($conn, $config);

@@ -9,13 +9,15 @@ use App\Repository\ProductRepository;
 use App\Request\Order\CreateOrderRequestTransformer;
 use App\Request\Order\PayOrderRequestTransformer;
 use App\Service\FixtureService;
-use App\Service\OrderService;
+use App\Service\Order\ConfirmationClient;
+use App\Service\Order\OrderService;
 use App\Service\ProductService;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 $routes = require(__DIR__).'/routes.php';
 $entityManager = require(__DIR__).'/doctrine.php';
+$monolog = require(__DIR__).'/monolog.php';
 
 $containerBuilder = new ContainerBuilder();
 
@@ -37,13 +39,17 @@ $containerBuilder->register(FixtureService::class, FixtureService::class)
 $containerBuilder->register(ProductService::class, ProductService::class)
     ->setArguments([new Reference(ProductRepository::class)]);
 $containerBuilder->register(OrderService::class, OrderService::class)
-    ->setArguments([new Reference(OrderRepository::class)]);
+    ->setArguments([new Reference(OrderRepository::class), new Reference(ConfirmationClient::class)]);
 
 // RequestTransformers
 $containerBuilder->register(CreateOrderRequestTransformer::class, CreateOrderRequestTransformer::class)
     ->setArguments([new Reference(ProductRepository::class)]);
 $containerBuilder->register(PayOrderRequestTransformer::class, PayOrderRequestTransformer::class)
     ->setArguments([new Reference(OrderRepository::class)]);
+
+// Other
+$containerBuilder->register(ConfirmationClient::class, ConfirmationClient::class)
+    ->setArguments([$monolog]);
 
 // Kernel register should be the last one
 $containerBuilder->register(Kernel::class, Kernel::class)->setArguments([$routes, $containerBuilder]);
